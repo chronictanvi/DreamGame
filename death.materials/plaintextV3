@@ -1,0 +1,278 @@
+[to do 
+> define clothes
+> define ending
+> build out later choices
+> add things after the boat and before the ending
+> [ fixed ] define n s e w 
+>  [ fixed ] make sure dialogue doesnt completely start over 
+> dialogue with dream being more natural less videogamey
+> [ fixed ] red string flesh out .. how is it acquired 
+> use of cariables or the epistemeology logic/extension to track what has / hans't been said would be good. esp regarding the boat
+]
+
+"the sand in between" by tanvi.
+
+Release along with interpreter.
+
+Include Simple Chat by Mark Tilford.
+Include Epistemology by Eric Eve.  
+
+
+When play begins, say "It is late autumn. You feel a cool breeze carress your face. A chill crawls up your spine, you feel the boundaries between the living and the supernatural blurring.  You open your eyes, and they are greeted with light and salt.   An amorphous figure stands before you.  [line break] On this day, you died.[line break]"
+
+
+The beach is a room. The description of the beach is "The beach stretches out as far as the eye can see. The sand is a glistening golden and sticks to your toes. The water is a perfect but disturbing cerulean blue. ".
+
+Before printing the name of the beach: omit contents in listing.
+
+A person can be satisfied or confused.
+
+Dream is a person in the beach. The description of Dream is "[if confused] Dream is looking at you, pensively. They seem to be waiting for you to engage with them. [else] Dream seems to be slowly disappearing." Dream is confused.
+
+
+[default directions]
+
+Instead of going north:
+	say "The beach is endless, the waters are treacherous. You can't escape. There is nowhere to go.".
+	
+Instead of going south:
+	say "The beach is endless, the waters are treacherous. You can't escape. There is nowhere to go.".
+
+Instead of going east:
+	say "The beach is endless, the waters are treacherous. You can't escape. There is nowhere to go.".
+	
+Instead of going west:
+	say "The beach is endless, the waters are treacherous. You can't escape. There is nowhere to go.".
+
+
+
+[self]
+The description of the player is "As good-looking as ever, and dead.".
+
+[List of objects] 
+
+The boat is a enterable container in the beach. The boat is fixed in place. The description of the boat is "Wooden, and stained a deep brown — the boat looks rickety and uninviting. It seems dream doesn't take care of this boat. Is he disgruntled by his working conditions?".
+
+
+The red string is a undescribed thing in the beach. Understand "thread" as red string. The description of the thread is "long and wiry, it seems to have an ethereal glossy texture." 
+
+
+The sand is scenery in the beach. The description of the sand is "The sand is continously shifting. You can't seem to focus on it, it slips away and dances around your feet. Hints of red seem to be buried in between. It weaves through the sand — long and thin — like a thread. "
+
+
+The water is scenery in the beach. The description of the water is "The water swirls around and smokes into the air, carrying a fog with it."
+
+
+[verbs]
+
+Understand "follow Dream","move to boat","go to boat","go on boat" as entering.
+
+
+Digging is an action applying to nothing.
+Understand "dig sand","dig beach" as digging.
+Understand "dig" as digging.
+The verb to dig means the visibility relation.
+Report digging:
+	say "You begin to dig with your hands. The sand is continously shifting. You can't seem to focus on it, it slips away and dances around your feet. Hints of red seem to be buried in between. It weaves through the sand — long and thin — like a thread.".
+	
+Instead of kissing someone:
+    say "'Geez, Bold move! Lets not do that.'".
+
+
+Instead of touching boat:
+    say "Ooh. Your fingers feel chilly. The boat feels....unreal? It vibrates on your touch".
+
+
+
+[Defining Dialogue System]
+
+Talking to is an action applying to one visible thing.
+Understand "talk to [someone]" as talking to.
+Understand "say hello [someone]" as talking to. 
+Report talking to: say "You have nothing to say.".
+
+When play begins:
+     forbid exiting on zero. [This line is so that the player cannot exit a conversation without choosing an item in the menu]
+
+
+After entering the boat:
+	say “[italic type] Oh so you are ready to go. Saving me the trouble.'";
+	end the story.
+
+
+Instead of talking to Dream:
+	If Dream is satisfied:
+		say "Dream doesn't want to interact further. Follow him.";
+	otherwise:
+		run a conversation from CONVOSTART.
+
+	
+	[This is the line that tells the player to run the conversation nodes defined below] 
+	
+
+[Dialogue Menu]
+CONVOSTART,
+GREETING,
+DESIRE,
+HEALTH,
+FRIENDSHIP,
+MONEY, HOLDON,
+chat-again,chat-goodbye,
+HOLDON2 are chat nodes. [you can define this individually to, as in "x is a chat node. I'm doing it at the same time because Inform 7 likes all the nodes to be set up before it executes the conversation, apparently.]
+
+chat-again is sc-inactive. 
+GREETING is sc-shown-once.
+
+
+
+[--------LEVEL 1---------]
+
+Report giving text for CONVOSTART: 	
+	Instead say "Lets see if we can find out why we are here.".
+Carry out finding responses to CONVOSTART:
+	link to GREETING;
+	link to DESIRE;
+	link to chat-again;
+
+
+Report giving link to GREETING:
+	instead say "[roman type] [fixed letter spacing]'Hellllo?'".
+Report giving text for GREETING:
+	instead say "[italic type] 'Congratulations, you are tresspassing. I am Morpheus, lord of the dreaming. You can call me Dream. We shall now commence your placement assessment for the afterlife.', [roman type] says Dream.";
+	deactivate chat-again.
+	
+
+DESIRE is sc-once.
+Report giving link to DESIRE:
+	instead say "'[roman type] [fixed letter spacing]Wh— what is going on?'"
+Report giving text for DESIRE:
+	instead say "'[roman type]Dream responds: [italic type] 'Excellent question. Time is on pause till we make our decisions. Let us initiate the conversation to determine where you go from here. What do you desire?'"
+	
+[--------LEVEL 2---------]
+
+Carry out finding responses to DESIRE:
+	link to HOLDON;
+	link to HEALTH;
+	link to FRIENDSHIP;
+	link to MONEY.
+	
+Report giving link to HOLDON:
+	instead say "[roman type] [fixed letter spacing]Wait, hold on...do I have to choose?";
+	
+Report giving text for HOLDON:
+	instead say "[roman type]You ask: Wait, hold on...do I have to choose? What — Who are you to question me?  [line break]
+	  Dream looks at you with confusion. [italic type] You're funny mortal. I don't have time for this, just tell me now, what do you want the most?";
+
+Carry out finding responses to HOLDON:
+	link to HEALTH;	[line break]
+	link to MONEY;
+	link to HOLDON2;
+	activate chat-again.
+
+[--------LEVEL 3---------]
+
+Report giving link to HOLDON2:
+	instead say "[roman type] [fixed letter spacing]Resist";
+	
+Report giving text for HOLDON2:
+	instead say "[roman type][line break] 'This feels like a trick...What would you chose?' you ask. [line break]
+	Dream says '[italic type]What do I want? I want to not have to deal with you mortals anymore. '[line break]
+	
+	[roman type]Dream is pissed off. Suddenly you hear a crackling, Dream starts drifiting away from you. You shall forever be trapped in this limbo.";
+	activate chat-again.
+
+Carry out finding responses to HOLDON2:
+	link to chat-again.
+
+
+[These are the other interactions with Dream apart from talking to their about various topics. This is the same as the previous example, but note how "telling / informing" is not a verb here.]
+
+
+Report giving link to chat-again:	
+	now Dream is satisfied;
+	instead say "[roman type] [fixed letter spacing]Reach for dream";
+	
+Report giving text for chat-again: 
+	Instead say "' [roman type] Wait...don't leave. I don't wish to choose but I also don't wish to be alone.' you insist.[line break]
+	Death enters the boat. It is time to go.".
+
+		
+		[
+Report giving link to chat-goodbye: 
+	instead say "[roman type] [fixed letter spacing]".
+	Report giving text for chat-goodbye: 
+		instead say "'[roman type] So you're just going to leave me like that! I have abandonment issues, you know! '
+	".
+	]
+
+
+
+[--------LEVEL 2---------]
+	
+
+[HEALTH is sc-shown-once.]
+
+Report giving link to HEALTH:
+	now Dream is satisfied;
+	instead say "[roman type] [fixed letter spacing]Health".
+Report giving text for HEALTH:
+	instead say "[roman type] I — I want to continue living. I'm not ready to die. Dream smirks at you. [italic type] 'Health. Are you sure you want to live forever? You may now proceed to the boat. I'll take you back to the land of the living.'".
+
+
+	
+[FRIENDSHIP is sc-shown-once.]
+
+Report giving link to FRIENDSHIP:
+	now Dream is satisfied;
+	instead say "[fixed letter spacing]Friendship";
+Report giving text for FRIENDSHIP:
+	instead say "[roman type]. I'm tired of being alone Wherever I go, I desire to have a companion.' [line break] Dream responds: [italic type] Very well. Your input has been approved. I shall be your companion. If only we had something to keep you from straying too far away from me..";
+
+
+MONEY is sc-shown-once.
+
+Report giving link to MONEY:
+	now Dream is satisfied;
+	instead say "[roman type][fixed letter spacing]Money";
+Report giving text for MONEY:
+	instead say  "[roman type]Riches. Wherever we are going, I'm don't wish to be powerless anymore.' [italic type] Ambitious, human. Your input has been approved. What do you have for me? How will I know you won't run away?";
+	activate chat-again.
+	
+	
+
+[— — — — — —  —red string mechanic —— — — — — — —]
+
+
+Before showing something to Dream:
+	if the noun is the red string:
+		say "[italic type] 'Ah, No one has tried to tether me with the string of fate before. I am the eternal lord Morpheus, but I guess some even I can't resist the powers of fate. ";
+		stop the action;
+	otherwise:
+		say "'What's your point, exactly?', asks Dream.";
+		stop the action.
+
+Instead of giving red string to Dream:
+	say " [italic type] 'WHAT! Where did you get that? You can touch the string of fate? Its surprising you can see through algorithm that binds you. You really do wish to remain tethered. I'll take your string ', says Dream.";
+	now Dream is holding red string.
+	
+[For some reason, Inform doesn't want me to end the story while in a dialogue, so I have to end it outside.]
+	
+
+
+Every turn:
+	if Dream is holding red string:
+		end the story saying "[roman type] You move on to the next life. Hopefully Dream will give you what was promised."
+
+
+	
+	[ "You can’t let each other go. The day fades. You are now answerable to a new abstraction. At least in this dimension, you won't be alone.".]
+
+
+Test me with "talk/1/talk/1/1/2".
+
+
+
+
+[ "Report giving link to ___ when second chat node is ___:".
+"if player wears the weird hat, link to ___".
+]
